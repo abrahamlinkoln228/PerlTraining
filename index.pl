@@ -28,33 +28,73 @@ print <<EOF;
   <button id="callback" class="btn btn-primary">додати</button>
 
 	<h2 id="af_callback">sum</h2>
+	<h2 id="letterResult">sum</h2>
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+-->
+
 	<script>
 
 function sorting(str){
 
-
 	var i = 0;
 	var arr = [];
-	var string123 = "1";
+	var string = "1";
 	while(str[i]+str[i+1]+str[i+2]+str[i+3] != "|end"){
 		if(str[i]+str[i+1] != "\d"){
-			
-			string123.concat('' ,str[i]);
-			console.log(string123);
+			arr.push(str[i]);
 		} else {
-			arr.push(string123);
+			
 		}
-		
 		i++;
 	}
 
-	console.log(arr);
+	//console.log(arr.join(''));
+
+let rows = 0;
+
+for(let i = 0; i<arr.length; i++){
+	if(arr[i]+arr[i+1]=="|b"){
+		arr[i] = "";
+		arr[i+1] == "";
+		rows++;
+	}
+}
+
+var data = [];
+var last = 0;
+ 
+//console.log(arr);
+for(let i = 0; i< arr.length;i++){
+		if(arr[i]+arr[i+1] == "|d"){
+			data[rows] = arr.slice(last, i).join("");
+			//console.log(data[rows]);
+			last = i +2;
+			rows--;
+		}
+
+}
+
+
+
+
+for(let i = 0; i<data.length; i--){
+
+	let id = data[i].split(" ")[0];
+	console.log(id);
+	let name = data[i].split(" ")[1];
+	console.log(name);
+	let img = data[i].split(" ")[3]
+	console.log(img);
+
+	//construct html and pass it here. Think about fog computing in order to give more job to the browser 
+}
+
+console.log(data);
 
 }
 
