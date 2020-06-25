@@ -14,17 +14,16 @@ print <<EOF;
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>get abonents</title>
   </head>
   <body>
 
   <div class="form-group">
-    <label for="exampleInputEmail1">перший додаток</label>
+    <label for="exampleInputEmail1">Номер договору або назва. залиште пустим, щоб вивисти все</label>
     <input type="number" class="form-control" id="add1">
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Другий додаток</label>
-    <input type="number" class="form-control" id="add2">
+    <!--<input type="number" class="form-control" id="add2">-->
   </div>
   <button id="callback" class="btn btn-primary">додати</button>
 
@@ -36,28 +35,50 @@ print <<EOF;
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 	<script>
-		function callback(n1, n2) {
+
+function sorting(str){
+
+
+	var i = 0;
+	var arr = [];
+	var string123 = "1";
+	while(str[i]+str[i+1]+str[i+2]+str[i+3] != "|end"){
+		if(str[i]+str[i+1] != "\d"){
+			
+			string123.concat('' ,str[i]);
+			console.log(string123);
+		} else {
+			arr.push(string123);
+		}
+		
+		i++;
+	}
+
+	console.log(arr);
+
+}
+
+function callback(n1, n2) {
 
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-     document.getElementById("af_callback").innerHTML = this.responseText;
-	console.log(this.responseText);
+     document.getElementById("af_callback").innerHTML = sorting(this.responseText);
     }
   };
-xhttp.open("POST", "add.pl", true);
-xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-xhttp.send("n1="+n1+"&n2="+n2); 
+	xhttp.open("POST", "add.pl", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send("n1="+n1); 
 }
 
 function displayDate() {
-  var number1 = document.getElementById("add1").value;
-  var number2 = document.getElementById("add2").value;
-  callback(number1, number2);
-  
+  callback(document.getElementById("add1").value);  
 }
 
- document.getElementById("callback").addEventListener("click", displayDate); 
+document.getElementById("callback").addEventListener("click", displayDate);
+
+
+
 		
 	</script>
   </body>
