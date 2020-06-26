@@ -18,7 +18,7 @@ print <<EOF;
   </head>
   <body>
 
-  <div class="form-group">
+  <div class="form-group" id="add11">
     <label for="exampleInputEmail1">Номер договору або назва. залиште пустим, щоб вивисти все</label>
     <input type="number" class="form-control" id="add1">
   </div>
@@ -27,20 +27,37 @@ print <<EOF;
   </div>
   <button id="callback" class="btn btn-primary">додати</button>
 
-	<h2 id="af_callback">sum</h2>
-	<h2 id="letterResult">sum</h2>
+
+	<div class="border border-dark custom">
+	<div class="rowsh ">
+      	<div class="row">
+        <div class="col border border-dark">
+            
+
+
+        </div>
+	        <div class="col border border-dark">
+
+
+
+        </div>
+
+	</div>
+
 
     <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS 
+    <!-- jQuery first, then Popper.js, then Bootstrap JS--> 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
--->
 
 	<script>
 
 function sorting(str){
-
+	
+	document.getElementById("add11").style.display = "none"; 
+	document.getElementById("callback").style.display = "none";	
+			
 	var i = 0;
 	var arr = [];
 	var string = "1";
@@ -53,7 +70,6 @@ function sorting(str){
 		i++;
 	}
 
-	//console.log(arr.join(''));
 
 let rows = 0;
 
@@ -65,6 +81,7 @@ for(let i = 0; i<arr.length; i++){
 	}
 }
 
+var rows_copy = rows;
 var data = [];
 var last = 0;
  
@@ -90,8 +107,10 @@ for(let i = 0; i<data.length; i--){
 	console.log(name);
 	let img = data[i].split(" ")[3]
 	console.log(img);
+	//console.log(i);
+	//construct html and pass it here. Think about fog computing in order to give more job to the browser
 
-	//construct html and pass it here. Think about fog computing in order to give more job to the browser 
+	document.getElementsByClassName("col")[Math.abs(i)].innerHTML += '<p>'+id+'</p> <img src="'+img+'" alt=""> <p class="text-center"><p>'+name+'</p>';
 }
 
 console.log(data);
@@ -103,7 +122,7 @@ function callback(n1, n2) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-     document.getElementById("af_callback").innerHTML = sorting(this.responseText);
+     sorting(this.responseText);
     }
   };
 	xhttp.open("POST", "add.pl", true);
